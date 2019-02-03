@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using VueCliMiddleware;
 using Yield.Application.Crop;
 using Yield.Core.Services;
-using Yield.Infrastucture.Repositories;
-using Yield.Infrastucture.Repositories.Interfaces;
+using Yield.Infrastructure.Repositories;
+using Yield.Infrastructure.Repositories.Interfaces;
 
 namespace Yield.Web
 {

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yield.Application", "src\Yi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yield.Core", "src\Yield.Core\Yield.Core.csproj", "{4C339215-8B1F-4AFA-B573-BB32492EAF7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yield.Infrastucture", "src\Yield.Infrastucture\Yield.Infrastucture.csproj", "{1B8F71FD-AA95-4FF9-AE2E-9A33932F4C83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yield.Infrastructure", "src\Yield.Infrastructure\Yield.Infrastructure.csproj", "{1B8F71FD-AA95-4FF9-AE2E-9A33932F4C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

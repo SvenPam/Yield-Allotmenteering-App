@@ -25,7 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Yield.Application\Yield.Application.csproj" />
     <ProjectReference Include="..\Yield.Core\Yield.Core.csproj" />
-    <ProjectReference Include="..\Yield.Infrastucture\Yield.Infrastucture.csproj" />
+    <ProjectReference Include="..\Yield.Infrastructure\Yield.Infrastructure.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

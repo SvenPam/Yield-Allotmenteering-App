@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yield.Core\Yield.Core.csproj" />
-    <ProjectReference Include="..\Yield.Infrastucture\Yield.Infrastucture.csproj" />
+    <ProjectReference Include="..\Yield.Infrastructure\Yield.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

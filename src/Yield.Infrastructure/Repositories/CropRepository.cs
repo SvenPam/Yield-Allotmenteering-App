@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yield.Core.Entities;
-using Yield.Infrastucture.Repositories.Interfaces;
+using Yield.Infrastructure.Repositories.Interfaces;
 
-namespace Yield.Infrastucture.Repositories
+namespace Yield.Infrastructure.Repositories
 {
     public class CropRepository : ICropRepository
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Yield.Core.Services;
-using Yield.Infrastucture.Repositories.Interfaces;
+using Yield.Infrastructure.Repositories.Interfaces;
 
 namespace Yield.Application.Crop
 {
