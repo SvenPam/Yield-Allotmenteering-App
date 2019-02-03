@@ -23,9 +23,21 @@ namespace Yield.Web.Controllers
             return Ok(await this.cropService.GetCrops());
         }
 
+        /// <summary>
+        /// Gets a crop for the given ID.
+        /// </summary>
+        /// <returns>The requested crop.</returns>
+        /// <response code="200">The requested crop.</response>
+        /// <response code="204">The crop for that Id does not exist.</response>   
         [HttpGet("{id}")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(204)]
         public async Task<ActionResult<Crop>> Get([FromRoute]Guid id)
         {
+            if(id == Guid.Empty) {
+                return BadRequest("Must be a valid Guid.");
+            }
+
             var crop = await this.cropService.GetCrop(id);
             if(crop == null)
             {
