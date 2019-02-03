@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using VueCliMiddleware;
+using Yield.Application.Allotment;
 using Yield.Application.Crop;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories;
@@ -29,6 +30,8 @@ namespace Yield.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAllotmentRepository, AllotmentRepository>();
+            services.AddTransient<IAllotmentService, AllotmentService>();
             services.AddTransient<ICropRepository, CropRepository>();
             services.AddTransient<ICropService, CropService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
