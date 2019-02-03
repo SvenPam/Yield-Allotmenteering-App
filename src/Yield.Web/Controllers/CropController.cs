@@ -30,7 +30,7 @@ namespace Yield.Web.Controllers
         /// <response code="200">The requested crop.</response>
         /// <response code="204">The crop for that Id does not exist.</response>   
         [HttpGet("{id}")]
-        [ProducesResponseType(201)]
+        [ProducesResponseType(200)]
         [ProducesResponseType(204)]
         public async Task<ActionResult<Crop>> Get([FromRoute]Guid id)
         {
@@ -44,7 +44,7 @@ namespace Yield.Web.Controllers
                 return NoContent();
             } 
             else {
-                return crop;
+                return Ok(crop);
             }
         }
     }
