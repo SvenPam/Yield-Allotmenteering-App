@@ -12,6 +12,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using VueCliMiddleware;
 using Yield.Application.Allotment;
 using Yield.Application.Crop;
+using Yield.Application.Plot;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories;
 using Yield.Infrastructure.Repositories.Interfaces;
@@ -32,6 +33,8 @@ namespace Yield.Web
         {
             services.AddTransient<IAllotmentRepository, AllotmentRepository>();
             services.AddTransient<IAllotmentService, AllotmentService>();
+            services.AddTransient<IPlotRepository, PlotRepository>();
+            services.AddTransient<IPlotService, PlotService>();
             services.AddTransient<ICropRepository, CropRepository>();
             services.AddTransient<ICropService, CropService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
