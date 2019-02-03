@@ -18,15 +18,22 @@ namespace Yield.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Crop>> Get()
+        public async Task<ActionResult<IEnumerable<Crop>>> Get()
         {
-            return await this.cropService.GetCrops();
+            return Ok(await this.cropService.GetCrops());
         }
 
         [HttpGet("{id}")]
-        public async Task<Crop> Get([FromRoute]Guid id)
+        public async Task<ActionResult<Crop>> Get([FromRoute]Guid id)
         {
-            return await this.cropService.GetCrop(id);
+            var crop = await this.cropService.GetCrop(id);
+            if(crop == null)
+            {
+                return NoContent();
+            } 
+            else {
+                return crop;
+            }
         }
     }
 
