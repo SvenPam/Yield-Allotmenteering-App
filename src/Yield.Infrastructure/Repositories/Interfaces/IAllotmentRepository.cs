@@ -7,6 +7,7 @@ namespace Yield.Infrastructure.Repositories.Interfaces
 {
     public interface IAllotmentRepository
     {
+        Task<IEnumerable<Allotment>> GetAllotments();
         Task<Allotment> GetAllotment(Guid Id);
     }
 }

@@ -7,6 +7,7 @@ namespace Yield.Core.Services
 {
     public interface IAllotmentService
     {
+        Task<IEnumerable<Allotment>> GetAllotments();
         Task<Allotment> GetAllotment(Guid id);
     }
 }

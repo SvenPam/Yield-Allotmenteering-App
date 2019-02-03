@@ -17,6 +17,12 @@ namespace Yield.Web.Controllers
             this.allotmentService = allotmentService;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Allotment>>> Get()
+        {
+            return Ok(await this.allotmentService.GetAllotments());
+        }
+
         /// <summary>
         /// Gets a allotment for the given ID.
         /// </summary>
