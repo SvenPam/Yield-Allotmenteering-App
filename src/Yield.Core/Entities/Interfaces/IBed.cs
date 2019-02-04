@@ -4,9 +4,9 @@ using Yield.Core.Entities.Interfaces;
 
 namespace Yield.Core.Entities
 {
-    public class IBed
+    public interface IBed
     {
-        public Guid Plot { get; set; }
-        public IEnumerable<Guid> Crops { get; set; }
+         Guid Plot { get; set; }
+         IEnumerable<Guid> Crops { get; set; }
     }
 }

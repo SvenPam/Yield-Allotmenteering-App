@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories.Interfaces;
 
-
 namespace Yield.Application.Bed
 {
     public class BedService: IBedService
