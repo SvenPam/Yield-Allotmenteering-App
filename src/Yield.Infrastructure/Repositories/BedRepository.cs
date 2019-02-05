@@ -27,7 +27,7 @@ namespace Yield.Infrastructure.Repositories
                 }
             }
         };
-        public async Task<IEnumerable<Bed>> GetBeds()
+        public async Task<IEnumerable<Bed>> GetBeds(Guid plot)
         {
             return await Task.FromResult(this.beds);
         }

@@ -20,9 +20,9 @@ namespace Yield.Application.Bed
         }
 
 
-        public async Task<Core.Entities.Bed> GetBed(Guid id)
+        public async Task<Core.Entities.Bed> GetBed(Guid plot)
         {
-            return await this.BedRepository.GetBed(id);
+            return await this.BedRepository.GetBed(plot);
         }
     }
 }
