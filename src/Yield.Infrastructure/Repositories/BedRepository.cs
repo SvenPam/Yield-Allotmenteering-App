@@ -9,8 +9,10 @@ namespace Yield.Infrastructure.Repositories
 {
     public class BedRepository : IBedRepository
     {
-        private readonly List<Bed> beds = new List<Bed> {
-            new Bed{
+        private readonly List<Bed> beds = new List<Bed> 
+        {
+            new Bed
+            {
                 Plot = new Guid("92f4a547-5200-4dc1-8009-1c32818d8a4a"),
                 Crops = new List<Guid> {
                     new Guid("a4f66c66-3d87-4880-96de-a38897039bf6"),
@@ -18,7 +20,8 @@ namespace Yield.Infrastructure.Repositories
 
                 }
             },
-            new Bed{
+            new Bed
+            {
                 Plot = new Guid("92f4a547-5200-4dc1-8009-1c32818d8a4a"),
                 Crops = new List<Guid> {
                     new Guid("a4f66c66-3d87-4880-96de-a38897039bf6"),

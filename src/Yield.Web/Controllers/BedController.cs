@@ -32,13 +32,13 @@ namespace Yield.Web.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<Bed>> Get([FromRoute]Guid plot, Guid crops)
+        public async Task<ActionResult<Bed>> Get([FromRoute]Guid plot, Guid bed)
         {
             if(plot == Guid.Empty) {
-                return BadRequest("Must be a valid Guid.");
+                return BadRequest("Must be a valid plot.");
             }
-            //TODO 
-            var bed = await this.bedService.GetBed(plot);
+            
+            var id = await this.bedService.GetBed(plot);
             if(bed == null)
             {
                 return NoContent();
