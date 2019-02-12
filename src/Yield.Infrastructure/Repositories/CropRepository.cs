@@ -9,7 +9,8 @@ namespace Yield.Infrastructure.Repositories
 {
     public class CropRepository : ICropRepository
     {
-        private readonly List<Crop> crops = new List<Crop> {
+        private readonly List<Crop> crops = new List<Crop> 
+        {
             new Crop{
                 Id = new Guid("a4f66c66-3d87-4880-96de-a38897039bf6"),
                 Name = "Potato",

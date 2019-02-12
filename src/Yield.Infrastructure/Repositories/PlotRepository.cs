@@ -9,7 +9,8 @@ namespace Yield.Infrastructure.Repositories
 {
     public class PlotRepository : IPlotRepository
     {
-        private readonly List<Plot> plots = new List<Plot> {
+        private readonly List<Plot> plots = new List<Plot> 
+        {
         new Plot {
         Id = new Guid("92f4a547-5200-4dc1-8009-1c32818d8a4a"),
         AllotmentId = new Guid("e41c7d47-4e30-4b6c-8d3c-558573e5e544"),

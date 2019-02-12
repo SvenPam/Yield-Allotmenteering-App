@@ -6,6 +6,7 @@ namespace Yield.Core.Entities
 {
     public class Bed : IBed
     {
+        public Guid Id { get; set; }
         public Guid Plot { get; set; }
         public IEnumerable<Guid> Crops { get; set; }
     }
