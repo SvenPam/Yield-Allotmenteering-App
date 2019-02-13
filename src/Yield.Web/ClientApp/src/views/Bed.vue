@@ -1,6 +1,6 @@
 <template>
-  <section class="home">
-<router-link to="/bed"> </router-link>
+  <section class="bed">
+<router-link to="/home"> </router-link>
   </section>
 </template>
 
@@ -11,5 +11,5 @@ import { Component, Vue } from "vue-property-decorator";
   components: {
   }
 })
-export default class Home extends Vue {}
+export default class Bed extends Vue {}
 </script>
