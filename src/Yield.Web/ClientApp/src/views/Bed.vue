@@ -1,7 +1,7 @@
 <template>
-  <section class="bed">
-<router-link to="/home"> </router-link>
-  </section>
+    <section class="bed">
+        <h1>I am the Bed Page</h1>  
+    </section>
 </template>
 
 <script lang="ts">
