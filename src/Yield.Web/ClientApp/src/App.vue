@@ -2,8 +2,20 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Yield</span>
-        <span class="font-weight-light">Allotmenteering</span>
+        <div>
+          <span>Yield</span>
+            <span class="font-weight-light">Allotmenteering</span>
+            <router-link to="/home">
+              <span class="font-weight-light">
+                Home
+              </span>
+            </router-link>
+            <router-link to="/bed">
+            <span class="font-weight-light">
+              Bed
+            </span>
+            </router-link>
+        </div>
       </v-toolbar-title>
     </v-toolbar>
 
