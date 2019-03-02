@@ -1,7 +1,13 @@
 <template>
-  <section class="home">
-<router-link to="/bed"> </router-link>
-  </section>
+  <div class="home">
+    <router-link to="/bed"></router-link>
+    <section class="actions">
+
+    </section>
+    <section class="planner">
+      
+    </section>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,7 +1,10 @@
 <template>
-    <section class="bed">
-        <h1>I am the Bed Page</h1>  
-    </section>
+    <div class="bed">
+      <h1>I am the Bed Page</h1>  
+        <section class="">
+
+        </section>
+    </div>
 </template>
 
 <script lang="ts">
