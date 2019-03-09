@@ -7,7 +7,6 @@ namespace Yield.Core.Services
 {
     public interface IBedService
     {
-        Task<IEnumerable<Bed>> GetBeds(Guid plot);
-        Task<Bed> GetBed(Guid plot);
+        Task<IBed> GetBed(string bedId);
     }
 }

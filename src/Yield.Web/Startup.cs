@@ -1,16 +1,14 @@
-using System;
-using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 using VueCliMiddleware;
 using Yield.Application.Allotment;
 using Yield.Application.Bed;
@@ -27,7 +25,7 @@ namespace Yield.Web
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -35,24 +33,23 @@ namespace Yield.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IAllotmentRepository, AllotmentRepository>();
             services.AddTransient<IAllotmentService, AllotmentService>();
-            services.AddTransient<IPlotRepository, PlotRepository>();
             services.AddTransient<IPlotService, PlotService>();
-            services.AddTransient<ICropRepository, CropRepository>();
+            services.AddTransient<IBedService, BedService>();
             services.AddTransient<ICropService, CropService>();
 
 
             var endpointUri = "https://yield-allotmenteering.documents.azure.com:443/";
-            var primaryKey = "BDH0Ddo6huRhfTD58so0jjnk1F6ycFcURdokuqi7oBuNuhZyTTDLv1qwusHPuHqiCfrwl5GDIr0nhDhDbQSnMw==";
+            var primaryKey = "AOHQl2ixU8g1PPZiYPjabf0hX6k2M9Qwcg7YcOwLKyQ0Fsoo8veVXDYtXiq9sr65bKyYEXCNrYrDdLqgkYVxsQ==";
             services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(endpointUri), primaryKey));
+
+            services.AddTransient<IRepository<Allotment>, CosmosDbBaseRepository<Allotment>>();
+            services.AddTransient<IRepository<Plot>, CosmosDbBaseRepository<Plot>>();
+            services.AddTransient<IRepository<Bed>, CosmosDbBaseRepository<Bed>>();
             services.AddTransient<IRepository<Crop>, CosmosDbBaseRepository<Crop>>();
 
-            services.AddTransient<IBedRepository, BedRepository>();
-            services.AddTransient<IBedService, BedService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -80,11 +77,11 @@ namespace Yield.Web
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-               // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
@@ -112,8 +109,9 @@ namespace Yield.Web
             });
         }
 
-        private void SetUpRepositoryServices() {
-            
+        private void SetUpRepositoryServices()
+        {
+
         }
     }
 }

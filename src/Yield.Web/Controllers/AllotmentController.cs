@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Yield.Core.Entities;
 using Yield.Core.Services;
 
@@ -17,36 +15,31 @@ namespace Yield.Web.Controllers
             this.allotmentService = allotmentService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Allotment>>> Get()
-        {
-            return Ok(await this.allotmentService.GetAllotments());
-        }
-
         /// <summary>
         /// Gets a allotment for the given ID.
         /// </summary>
         /// <returns>The requested allotment.</returns>
         /// <response code="200">The requested allotment.</response>
         /// <response code="204">The allotment for that Id does not exist.</response>   
-        [HttpGet("{id}")]
+        [HttpGet("{allotmentId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<Allotment>> Get([FromRoute]string id)
+        public async Task<ActionResult<Allotment>> Get([FromRoute]string allotmentId)
         {
-            if(string.IsNullOrEmpty(id)) {
-                return BadRequest("Must be a valid Guid.");
+            if (string.IsNullOrWhiteSpace(allotmentId))
+            {
+                return BadRequest("Must be a valid ID.");
             }
 
-            var allotment = await this.allotmentService.GetAllotment(id);
-            if(allotment == null)
+            var allotment = await this.allotmentService.GetAllotment(allotmentId);
+            if (allotment == null)
             {
                 return NoContent();
-            } 
-            else {
+            }
+            else
+            {
                 return Ok(allotment);
             }
         }
     }
-
 }

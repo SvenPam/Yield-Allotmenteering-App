@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Yield.Core.Entities;
+using Yield.Core.Entities.Interfaces;
 
 namespace Yield.Core.Services
 {
     public interface IAllotmentService
     {
-        Task<IEnumerable<Allotment>> GetAllotments();
-        Task<Allotment> GetAllotment(string id);
+        Task<IAllotment> GetAllotment(string id);
     }
 }

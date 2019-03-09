@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yield.Core.Entities.Interfaces;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories.Interfaces;
 
@@ -8,21 +9,16 @@ namespace Yield.Application.Plot
 {
    public class PlotService: IPlotService
     {
-        private readonly IPlotRepository plotRepository;
+        private readonly IRepository<IPlot> plotRepository;
 
-        public PlotService(IPlotRepository plotRepository)
+        public PlotService(IRepository<IPlot> plotRepository)
         {
             this.plotRepository = plotRepository;
         }
-        public async Task<IEnumerable<Core.Entities.Plot>> GetPlots(Guid allotmentId)
-        {
-            return await this.plotRepository.GetPlots(allotmentId);
-        }
 
-
-        public async Task<Core.Entities.Plot> GetPlot(Guid allotmentId, Guid id)
+        public async Task<IPlot> GetPlot(string plotId)
         {
-            return await this.plotRepository.GetPlot(allotmentId, id);
+            return await this.plotRepository.Get(plotId);
         }
     }
 }

@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Yield.Core.Entities;
+using Yield.Core.Entities.Interfaces;
 
 namespace Yield.Core.Services
 {
     public interface ICropService
     {
-        Task<IEnumerable<Crop>> GetCrops();
-        Task<Crop> GetCrop(string id);
+        Task<ICrop> GetCrop(string id);
     }
 }

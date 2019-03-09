@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Yield.Core.Entities;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories.Interfaces;
 
 namespace Yield.Application.Bed
 {
-    public class BedService: IBedService
+    public class BedService : IBedService
     {
-        private readonly IBedRepository BedRepository;
+        private readonly IRepository<IBed> BedRepository;
 
-        public BedService(IBedRepository BedRepository)
+        public BedService(IRepository<IBed> BedRepository)
         {
             this.BedRepository = BedRepository;
         }
-        public async Task<IEnumerable<Core.Entities.Bed>> GetBeds(Guid plot)
-        {
-            return await this.BedRepository.GetBeds(plot);
-        }
 
-
-        public async Task<Core.Entities.Bed> GetBed(Guid plot)
+        public async Task<IBed> GetBed(string bedId)
         {
-            return await this.BedRepository.GetBed(plot);
+            return await this.BedRepository.Get(bedId);
         }
     }
 }

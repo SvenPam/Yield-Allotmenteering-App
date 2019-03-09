@@ -8,6 +8,6 @@ namespace Yield.Core.Entities.Interfaces
         string Name { get; set; }
         double Latitude { get; set; }
         double Longitude { get; set; }
-        IEnumerable<Guid> Plots { get; set; }
+        IEnumerable<string> Plots { get; set; }
     }
 }

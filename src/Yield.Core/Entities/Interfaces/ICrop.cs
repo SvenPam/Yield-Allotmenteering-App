@@ -9,6 +9,5 @@ namespace Yield.Core.Entities.Interfaces
         PlantingPhase[] PlantingPhases { get; set; }
         string Description { get; set; }
         string ImageLink { get; set; }
-
     }
 }
