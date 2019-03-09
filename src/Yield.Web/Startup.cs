@@ -13,7 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using VueCliMiddleware;
 using Yield.Application.Allotment;
+using Yield.Application.Bed;
 using Yield.Application.Crop;
+using Yield.Application.Plot;
 using Yield.Core.Entities;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories;
@@ -35,6 +37,8 @@ namespace Yield.Web
         {
             services.AddTransient<IAllotmentRepository, AllotmentRepository>();
             services.AddTransient<IAllotmentService, AllotmentService>();
+            services.AddTransient<IPlotRepository, PlotRepository>();
+            services.AddTransient<IPlotService, PlotService>();
             services.AddTransient<ICropRepository, CropRepository>();
             services.AddTransient<ICropService, CropService>();
 
@@ -44,6 +48,8 @@ namespace Yield.Web
             services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(endpointUri), primaryKey));
             services.AddTransient<IRepository<Crop>, CosmosDbBaseRepository<Crop>>();
 
+            services.AddTransient<IBedRepository, BedRepository>();
+            services.AddTransient<IBedService, BedService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
