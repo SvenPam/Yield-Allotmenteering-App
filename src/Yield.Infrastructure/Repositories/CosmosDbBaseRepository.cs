@@ -1,13 +1,14 @@
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using Microsoft.Azure.Documents.Linq;
-using Yield.Core.Providers;
+using Yield.Core.Config;
 using Yield.Infrastructure.Repositories.Interfaces;
 
 namespace Yield.Infrastructure.Repositories
@@ -16,42 +17,49 @@ namespace Yield.Infrastructure.Repositories
         where T : class
     {
         private readonly IDocumentClient documentClient;
-        private readonly IConfigProvider configProvider;
+        private readonly IOptions<CosmosDbConfig> cosmosDbConfig;
         private readonly string collectionId;
 
-        public CosmosDbBaseRepository(IDocumentClient documentClient, IConfigProvider configProvider)
+        public CosmosDbBaseRepository(IDocumentClient documentClient, IOptions<CosmosDbConfig> cosmosDbConfig)
         {
             this.documentClient = documentClient;
-            this.configProvider = configProvider;
+            this.cosmosDbConfig = cosmosDbConfig;
             this.collectionId = typeof(T).Name;
+
+            if (typeof(T).IsAbstract)
+            {
+                this.collectionId = this.collectionId.TrimStart('I');
+            }
         }
 
-        public async Task<T> Get(string id, string partitionKey = null)
+        public async Task<T> Get(string id)
         {
-            RequestOptions requestOptions = null;
 
-            if (!string.IsNullOrEmpty(partitionKey))
+            var requestOptions = new RequestOptions
             {
-                requestOptions = new RequestOptions
-                {
-                    PartitionKey = new PartitionKey(id)
-                };
-            }
+                PartitionKey = new PartitionKey()
+            };
+
             try
             {
                 var response =
                     await
                         this.documentClient.ReadDocumentAsync(
-                            UriFactory.CreateDocumentUri(this.configProvider.CosmosDbName, this.collectionId, id),
+                            UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id),
                             requestOptions);
 
                 return (T)(dynamic)response.Resource;
             }
             catch (DocumentClientException ex)
-            { 
-                if(ex.StatusCode == HttpStatusCode.NotFound) {
+            {
+                if (ex.StatusCode == HttpStatusCode.NotFound)
+                {
                     return null;
-                } else throw;
+                }
+                else
+                {
+                    throw;
+                }
             }
         }
 
@@ -59,7 +67,7 @@ namespace Yield.Infrastructure.Repositories
         {
             var query =
                 this.documentClient.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(this.configProvider.CosmosDbName, this.collectionId),
+                    UriFactory.CreateDocumentCollectionUri(this.cosmosDbConfig.Value.Name, this.collectionId),
                     new FeedOptions { MaxItemCount = maxCount }).AsDocumentQuery();
 
             var results = new List<T>();
@@ -74,7 +82,7 @@ namespace Yield.Infrastructure.Repositories
         public async Task<IEnumerable<T>> GetItems(Expression<Func<T, bool>> predicate, bool crossPartitionQuery, int maxCount = 200, int page = 0)
         {
             var query = this.documentClient.CreateDocumentQuery<T>(
-                    UriFactory.CreateDocumentCollectionUri(this.configProvider.CosmosDbName, this.collectionId),
+                    UriFactory.CreateDocumentCollectionUri(this.cosmosDbConfig.Value.Name, this.collectionId),
                     new FeedOptions
                     {
                         MaxItemCount = maxCount,
@@ -97,7 +105,7 @@ namespace Yield.Infrastructure.Repositories
             return
                 await
                     this.documentClient.CreateDocumentAsync(
-                        UriFactory.CreateDocumentCollectionUri(this.configProvider.CosmosDbName, this.collectionId),
+                        UriFactory.CreateDocumentCollectionUri(this.cosmosDbConfig.Value.Name, this.collectionId),
                         item);
         }
 
@@ -106,7 +114,7 @@ namespace Yield.Infrastructure.Repositories
             return
                 await
                     this.documentClient.ReplaceDocumentAsync(
-                        UriFactory.CreateDocumentUri(this.configProvider.CosmosDbName, this.collectionId, id),
+                        UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id),
                         item);
         }
 
@@ -114,7 +122,7 @@ namespace Yield.Infrastructure.Repositories
         {
             await
                 this.documentClient.DeleteDocumentAsync(
-                    UriFactory.CreateDocumentUri(this.configProvider.CosmosDbName, this.collectionId, id));
+                    UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id));
         }
     }
 }

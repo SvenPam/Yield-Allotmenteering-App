@@ -14,7 +14,9 @@ using Yield.Application.Allotment;
 using Yield.Application.Bed;
 using Yield.Application.Crop;
 using Yield.Application.Plot;
+using Yield.Core.Config;
 using Yield.Core.Entities;
+using Yield.Core.Entities.Interfaces;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories;
 using Yield.Infrastructure.Repositories.Interfaces;
@@ -33,20 +35,23 @@ namespace Yield.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddOptions();
+            services.Configure<CosmosDbConfig>(Configuration.GetSection("CosmosDb"));
+
             services.AddTransient<IAllotmentService, AllotmentService>();
             services.AddTransient<IPlotService, PlotService>();
             services.AddTransient<IBedService, BedService>();
             services.AddTransient<ICropService, CropService>();
 
+            var cosmosSettings = new CosmosDbConfig();
+            Configuration.GetSection("CosmosDb").Bind(cosmosSettings);
+            services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(cosmosSettings.Endpoint), cosmosSettings.Key));
 
-            var endpointUri = "https://yield-allotmenteering.documents.azure.com:443/";
-            var primaryKey = "AOHQl2ixU8g1PPZiYPjabf0hX6k2M9Qwcg7YcOwLKyQ0Fsoo8veVXDYtXiq9sr65bKyYEXCNrYrDdLqgkYVxsQ==";
-            services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(endpointUri), primaryKey));
-
-            services.AddTransient<IRepository<Allotment>, CosmosDbBaseRepository<Allotment>>();
-            services.AddTransient<IRepository<Plot>, CosmosDbBaseRepository<Plot>>();
-            services.AddTransient<IRepository<Bed>, CosmosDbBaseRepository<Bed>>();
-            services.AddTransient<IRepository<Crop>, CosmosDbBaseRepository<Crop>>();
+            services.AddTransient<IRepository<IAllotment>, CosmosDbBaseRepository<IAllotment>>();
+            services.AddTransient<IRepository<IPlot>, CosmosDbBaseRepository<IPlot>>();
+            services.AddTransient<IRepository<IBed>, CosmosDbBaseRepository<IBed>>();
+            services.AddTransient<IRepository<ICrop>, CosmosDbBaseRepository<ICrop>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -107,11 +112,6 @@ namespace Yield.Web
                     spa.UseVueCli(npmScript: "serve", port: 8080);
                 }
             });
-        }
-
-        private void SetUpRepositoryServices()
-        {
-
         }
     }
 }
