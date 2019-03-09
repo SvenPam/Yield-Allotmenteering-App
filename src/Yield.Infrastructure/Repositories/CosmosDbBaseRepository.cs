@@ -37,7 +37,7 @@ namespace Yield.Infrastructure.Repositories
 
             var requestOptions = new RequestOptions
             {
-                PartitionKey = new PartitionKey()
+                PartitionKey = new PartitionKey(this.collectionId)
             };
 
             try
