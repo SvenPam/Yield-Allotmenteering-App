@@ -32,9 +32,9 @@ namespace Yield.Web.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<Allotment>> Get([FromRoute]Guid id)
+        public async Task<ActionResult<Allotment>> Get([FromRoute]string id)
         {
-            if(id == Guid.Empty) {
+            if(string.IsNullOrEmpty(id)) {
                 return BadRequest("Must be a valid Guid.");
             }
 

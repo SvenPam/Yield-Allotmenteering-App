@@ -19,7 +19,7 @@ namespace Yield.Application.Crop
         {
             return await this.cropRepository.GetCrops();
         }
-        public async Task<Core.Entities.Crop> GetCrop(Guid id)
+        public async Task<Core.Entities.Crop> GetCrop(string id)
         {
             return await this.cropRepository.GetCrop(id);
         }

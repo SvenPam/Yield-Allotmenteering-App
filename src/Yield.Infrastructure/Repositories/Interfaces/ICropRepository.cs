@@ -8,6 +8,6 @@ namespace Yield.Infrastructure.Repositories.Interfaces
     public interface ICropRepository
     {
         Task<IEnumerable<Crop>> GetCrops();
-        Task<Crop> GetCrop(Guid id);
+        Task<Crop> GetCrop(string id);
     }
 }

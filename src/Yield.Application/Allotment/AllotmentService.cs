@@ -21,7 +21,7 @@ namespace Yield.Application.Allotment
         }
 
 
-        public async Task<Core.Entities.Allotment> GetAllotment(Guid id)
+        public async Task<Core.Entities.Allotment> GetAllotment(string id)
         {
             return await this.allotmentRepository.GetAllotment(id);
         }

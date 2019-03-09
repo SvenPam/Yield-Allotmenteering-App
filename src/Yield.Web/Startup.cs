@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using VueCliMiddleware;
 using Yield.Application.Allotment;
 using Yield.Application.Crop;
+using Yield.Core.Entities;
 using Yield.Core.Services;
 using Yield.Infrastructure.Repositories;
 using Yield.Infrastructure.Repositories.Interfaces;
@@ -34,6 +37,13 @@ namespace Yield.Web
             services.AddTransient<IAllotmentService, AllotmentService>();
             services.AddTransient<ICropRepository, CropRepository>();
             services.AddTransient<ICropService, CropService>();
+
+
+            var endpointUri = "https://yield-allotmenteering.documents.azure.com:443/";
+            var primaryKey = "BDH0Ddo6huRhfTD58so0jjnk1F6ycFcURdokuqi7oBuNuhZyTTDLv1qwusHPuHqiCfrwl5GDIr0nhDhDbQSnMw==";
+            services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(endpointUri), primaryKey));
+            services.AddTransient<IRepository<Crop>, CosmosDbBaseRepository<Crop>>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
@@ -94,6 +104,10 @@ namespace Yield.Web
                     spa.UseVueCli(npmScript: "serve", port: 8080);
                 }
             });
+        }
+
+        private void SetUpRepositoryServices() {
+            
         }
     }
 }
