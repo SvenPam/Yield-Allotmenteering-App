@@ -10,10 +10,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using VueCliMiddleware;
-using Yield.Application.Allotment;
-using Yield.Application.Bed;
-using Yield.Application.Crop;
-using Yield.Application.Plot;
+using Yield.Application.EntityServices;
 using Yield.Core.Config;
 using Yield.Core.Entities;
 using Yield.Core.Entities.Interfaces;
@@ -48,10 +45,10 @@ namespace Yield.Web
             Configuration.GetSection("CosmosDb").Bind(cosmosSettings);
             services.AddSingleton<IDocumentClient>(new DocumentClient(new Uri(cosmosSettings.Endpoint), cosmosSettings.Key));
 
-            services.AddTransient<IRepository<IAllotment>, CosmosDbBaseRepository<IAllotment>>();
-            services.AddTransient<IRepository<IPlot>, CosmosDbBaseRepository<IPlot>>();
-            services.AddTransient<IRepository<IBed>, CosmosDbBaseRepository<IBed>>();
-            services.AddTransient<IRepository<ICrop>, CosmosDbBaseRepository<ICrop>>();
+            services.AddTransient<IRepository<Allotment>, CosmosDbBaseRepository<Allotment>>();
+            services.AddTransient<IRepository<Plot>, CosmosDbBaseRepository<Plot>>();
+            services.AddTransient<IRepository<Bed>, CosmosDbBaseRepository<Bed>>();
+            services.AddTransient<IRepository<Crop>, CosmosDbBaseRepository<Crop>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

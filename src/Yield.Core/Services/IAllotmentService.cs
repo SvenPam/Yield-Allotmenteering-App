@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
-using Yield.Core.Entities.Interfaces;
+using Yield.Core.Entities;
 
 namespace Yield.Core.Services
 {
     public interface IAllotmentService
     {
-        Task<IAllotment> GetAllotment(string id);
+        Task<Allotment> GetAllotment(string id);
+        Task<Allotment> AddAllotment(Allotment allotment);
     }
 }

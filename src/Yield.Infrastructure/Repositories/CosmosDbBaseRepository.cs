@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using Yield.Core.Config;
+using Yield.Core.Entities.Interfaces;
 using Yield.Infrastructure.Repositories.Interfaces;
 
 namespace Yield.Infrastructure.Repositories
@@ -37,7 +38,7 @@ namespace Yield.Infrastructure.Repositories
 
             var requestOptions = new RequestOptions
             {
-                PartitionKey = new PartitionKey(this.collectionId)
+                PartitionKey = new PartitionKey(id)
             };
 
             try
@@ -45,8 +46,7 @@ namespace Yield.Infrastructure.Repositories
                 var response =
                     await
                         this.documentClient.ReadDocumentAsync(
-                            UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id),
-                            requestOptions);
+                            UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id), requestOptions);
 
                 return (T)(dynamic)response.Resource;
             }
@@ -100,22 +100,23 @@ namespace Yield.Infrastructure.Repositories
             return results;
         }
 
-        public async Task<Document> Create(T item)
+        public async Task<T> Create(IEntity item)
         {
-            return
-                await
-                    this.documentClient.CreateDocumentAsync(
-                        UriFactory.CreateDocumentCollectionUri(this.cosmosDbConfig.Value.Name, this.collectionId),
-                        item);
+
+            var doc = await this.documentClient.CreateDocumentAsync(
+                                UriFactory.CreateDocumentCollectionUri(this.cosmosDbConfig.Value.Name, this.collectionId),
+                                item);
+            item.Id = doc.Resource.Id;
+            return item as T;
         }
 
-        public async Task<Document> Update(string id, T item)
+        public async Task<T> Update(string id, T item)
         {
             return
                 await
                     this.documentClient.ReplaceDocumentAsync(
                         UriFactory.CreateDocumentUri(this.cosmosDbConfig.Value.Name, this.collectionId, id),
-                        item);
+                        item) as T;
         }
 
         public async Task Delete(string id)

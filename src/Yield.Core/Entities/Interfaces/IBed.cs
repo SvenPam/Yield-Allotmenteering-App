@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using Yield.Core.Entities.Interfaces;
 
 namespace Yield.Core.Entities
 {
-    public interface IBed
+    public interface IBed : IEntity
     {
-         string Id { get; set; }
          string PlotId { get; set; }
          IEnumerable<string> Crops { get; set; }
     }

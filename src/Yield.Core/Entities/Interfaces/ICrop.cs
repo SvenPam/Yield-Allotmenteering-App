@@ -1,8 +1,6 @@
-using System;
-
 namespace Yield.Core.Entities.Interfaces
 {
-    public interface ICrop
+    public interface ICrop : IEntity
     {
         string Name { get; set; }
         Family Family { get; set; }
