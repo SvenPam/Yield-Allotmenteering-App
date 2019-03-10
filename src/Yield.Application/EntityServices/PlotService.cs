@@ -14,9 +14,9 @@ namespace Yield.Application.EntityServices
             this.plotRepository = plotRepository;
         }
 
-        public async Task<Plot> GetPlot(string plotId)
+        public async Task<Plot> GetPlot(string allotmentId, string plotId)
         {
-            return await this.plotRepository.Get(plotId);
+            return await this.plotRepository.Get(allotmentId, plotId);
         }
     }
 }

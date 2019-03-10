@@ -16,7 +16,7 @@ namespace Yield.Application.EntityServices
 
         public async Task<Crop> GetCrop(string id)
         {
-            return await this.cropRepository.Get(id);
+            return await this.cropRepository.Get(id, id);
         }
     }
 }

@@ -33,12 +33,12 @@ namespace Yield.Infrastructure.Repositories
             }
         }
 
-        public async Task<T> Get(string id)
+        public async Task<T> Get(string partitionId, string id)
         {
 
             var requestOptions = new RequestOptions
             {
-                PartitionKey = new PartitionKey(id)
+                PartitionKey = new PartitionKey(partitionId)
             };
 
             try

@@ -5,6 +5,6 @@ namespace Yield.Core.Services
 {
     public interface IPlotService
     {
-        Task<Plot> GetPlot(string plotId);
+        Task<Plot> GetPlot(string allotmentId, string plotId);
     }
 }

@@ -6,7 +6,7 @@ using Yield.Core.Services;
 
 namespace Yield.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/allotment/{allotmentId}/[controller]")]
     public class PlotController : Controller
     {
         public readonly IPlotService plotService;
@@ -22,12 +22,12 @@ namespace Yield.Web.Controllers
         /// <response code="200">The requested plot.</response>
         /// <response code="204">The plot for that Id does not exist.</response>   
 
-        [HttpGet("{id}")]
+        [HttpGet("{plotId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<Plot>> Get([FromRoute] string id)
+        public async Task<ActionResult<Plot>> Get([FromRoute] string allotmentId, [FromRoute] string plotId)
         {
-            var plot = await this.plotService.GetPlot(id);
+            var plot = await this.plotService.GetPlot(allotmentId, plotId);
 
             if (plot == null)
             {

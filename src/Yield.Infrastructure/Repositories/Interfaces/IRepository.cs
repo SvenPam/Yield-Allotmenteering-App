@@ -8,7 +8,7 @@ namespace Yield.Infrastructure.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<T> Get(string id);
+        Task<T> Get(string partitionId, string id);
 
         Task<IEnumerable<T>> GetItems(int maxCount = 200, int page = 0);
 

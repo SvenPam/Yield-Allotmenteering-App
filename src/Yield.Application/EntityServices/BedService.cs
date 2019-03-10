@@ -14,9 +14,9 @@ namespace Yield.Application.EntityServices
             this.BedRepository = BedRepository;
         }
 
-        public async Task<Bed> GetBed(string bedId)
+        public async Task<Bed> GetBed(string plotId, string bedId)
         {
-            return await this.BedRepository.Get(bedId);
+            return await this.BedRepository.Get(plotId, bedId);
         }
     }
 }

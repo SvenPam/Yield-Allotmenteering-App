@@ -5,7 +5,7 @@ using Yield.Core.Services;
 
 namespace Yield.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/allotment/{allotmentId}/plot/{plotId}/[controller]")]
     public class BedController : Controller
     {
         public readonly IBedService bedService;
@@ -24,9 +24,9 @@ namespace Yield.Web.Controllers
         [HttpGet("{bedId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<Bed>> Get([FromRoute] string bedId)
+        public async Task<ActionResult<Bed>> Get([FromRoute] string plotId, [FromRoute] string bedId)
         {
-            var bed = await this.bedService.GetBed(bedId);
+            var bed = await this.bedService.GetBed(plotId, bedId);
 
             if (bed == null)
             {

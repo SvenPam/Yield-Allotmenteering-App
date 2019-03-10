@@ -23,7 +23,7 @@ namespace Yield.Application.EntityServices
 
         public async Task<Allotment> GetAllotment(string id)
         {
-            return await this.allotmentRepository.Get(id) as Allotment;
+            return await this.allotmentRepository.Get(id, id) as Allotment;
         }
     }
 }
