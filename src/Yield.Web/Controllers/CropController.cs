@@ -26,11 +26,6 @@ namespace Yield.Web.Controllers
         [ProducesResponseType(204)]
         public async Task<ActionResult<Crop>> Get([FromRoute]string cropId)
         {
-            if (string.IsNullOrWhiteSpace(cropId))
-            {
-                return BadRequest("Must be a valid Guid.");
-            }
-
             var crop = await this.cropService.GetCrop(cropId);
 
             if (crop == null)

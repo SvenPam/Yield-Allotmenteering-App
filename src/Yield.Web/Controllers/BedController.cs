@@ -26,11 +26,6 @@ namespace Yield.Web.Controllers
         [ProducesResponseType(204)]
         public async Task<ActionResult<Bed>> Get([FromRoute] string bedId)
         {
-            if (!string.IsNullOrWhiteSpace(bedId))
-            {
-                return BadRequest("Must be a valid plot.");
-            }
-
             var bed = await this.bedService.GetBed(bedId);
 
             if (bed == null)

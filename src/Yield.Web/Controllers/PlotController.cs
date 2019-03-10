@@ -27,11 +27,6 @@ namespace Yield.Web.Controllers
         [ProducesResponseType(204)]
         public async Task<ActionResult<Plot>> Get([FromRoute] string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return BadRequest("Must be a valid Guid.");
-            }
-
             var plot = await this.plotService.GetPlot(id);
 
             if (plot == null)
