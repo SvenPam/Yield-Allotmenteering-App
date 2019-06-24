@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
-using Yield.Core.Entities.Interfaces;
 
 namespace Yield.Core.Entities
 {
-    public class Bed : IBed
+    public class Bed : Entity, IBed
     {
-        public Guid Id { get; set; }
-        public Guid Plot { get; set; }
-        public IEnumerable<Guid> Crops { get; set; }
+        public string PlotId { get; set; }
+        public IEnumerable<string> Crops { get; set; }
     }
 }

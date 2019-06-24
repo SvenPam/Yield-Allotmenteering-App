@@ -8,4 +8,9 @@
     <ProjectReference Include="..\Yield.Core\Yield.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+  </ItemGroup>
+
 </Project>
